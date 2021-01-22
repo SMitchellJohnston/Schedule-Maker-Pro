@@ -1,0 +1,56 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<!--CREATED BY MITCH JOHNSTON -->
+<head th:fragment="head">
+
+    <!-- Bootstrap stylesheets and script -->
+    <link th:href="@{/css/bootstrap.css}" rel="stylesheet" />
+    <link th:href="@{/css/custom-style.css}" rel="stylesheet" />
+    <script type="text/javascript" th:src="@{/js/bootstrap.js}"></script>
+
+    <title th:text="'Schedule Maker' + ${title == null ? '' : ' :: ' + title}">Schedule Maker Pro</title>
+</head>
+<body>
+
+
+<header th:fragment="page-header" class="navbar navbar-inverse navbar-fixed-top">
+    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+
+            <div class="navbar-brand">
+                <a th:href="@{/}" class="navbar-brand">Schedule Maker Pro</a>
+            </div>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="navbar-collapse collapse navbar-right" id="navbarNavAltMarkup">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a class="nav-link" th:href="@{/employee}">Employees</a></li>
+                    <li><a class="nav-link" th:href="@{/position}">Positions</a></li>
+
+                </ul>
+            </div>
+
+    </nav>
+<!--    <nav class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">-->
+<!--        <div class="navbar-brand" >Schedule Maker</div>-->
+<!--        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">-->
+<!--            <span class="navbar-toggler-icon"></span>-->
+<!--        </button>-->
+<!--        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">-->
+<!--            <div class="navbar-nav navbar-right">-->
+<!--                <a class="nav-link" th:href="@{/}">Home </a>-->
+<!--                <a class="nav-link" th:href="@{/employee}">Employees</a>-->
+<!--                <a class="nav-link" th:href="@{/}">Create Schedule</a>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </nav>-->
+
+</header>
+
+
+<footer th:fragment="page-footer">
+<hr>
+    <p class="text-center">©2021 Steven M. Johnston </p>
+</footer>
+</body>
+</html>

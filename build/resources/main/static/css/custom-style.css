@@ -1,0 +1,14 @@
+.body-content {
+    margin-top 70px;
+    padding: 100 px;
+}
+
+body {
+    padding-top: 65px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+
+}

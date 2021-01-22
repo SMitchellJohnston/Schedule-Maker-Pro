@@ -1,0 +1,27 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<!--CREATED BY MITCH JOHNSTON -->
+<head th:replace="fragments :: head">
+</head>
+<body>
+<div th:replace="fragments :: page-header" class="navbar navbar-inverse navbar-fixed-top"></div>
+
+
+
+
+<div class="container body-content">
+    <h1 class="text-center">Positions</h1>
+    <div class="container">
+        <h5 th:unless="${positions} and ${positions.size()}" class="text-center">No Positions!</h5>
+    </div>
+        <ul th:each="position : ${positions}">
+            <li th:text="${position.title}"></li>
+        </ul>
+    <div class="container">
+        <a th:href="@{/position/create}">Create New Position</a>
+    </div>
+</div>
+<footer th:replace="fragments :: page-footer"></footer>
+
+</body>
+</html>

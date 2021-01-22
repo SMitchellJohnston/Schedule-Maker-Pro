@@ -1,1 +1,1 @@
-# Schedule-Maker-Pro
+# schedule-maker-pro

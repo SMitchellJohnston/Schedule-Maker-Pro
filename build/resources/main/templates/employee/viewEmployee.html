@@ -1,0 +1,50 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<!--CREATED BY MITCH JOHNSTON -->
+<head th:replace="fragments :: head">
+</head>
+<body>
+<div th:replace="fragments :: page-header" class="navbar navbar-inverse navbar-fixed-top"></div>
+
+
+
+
+<div class="container body-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-7 order-first">
+
+                <h1 class="display-2" th:text="${employee.lastName} + ', '"></h1>
+                <h1 class="display-3" th:text="${employee.firstName}"></h1>
+            </div>
+
+            <div class="col-5">
+                <h1 class="display-4 text-center">JOBS</h1>
+                <table class="table table-sm table-hover">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Position</th>
+                        <th scope="col">Pay Rate</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:unless="${jobs} and ${jobs.size()}" class="text-center">
+                            <td colspan="2">No Jobs Yet </td>
+                        </tr>
+                        <tr th:each="job : ${jobs}">
+                            <td th:text="job.position.title"></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="container">
+                    <a th:href="@{/employee/createJob}">Create New Job</a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+</body>
+<footer th:replace="fragments :: page-footer"></footer>
+</html>

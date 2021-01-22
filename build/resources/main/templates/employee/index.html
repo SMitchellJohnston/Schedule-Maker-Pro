@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org/">
+<!--CREATED BY MITCH JOHNSTON -->
+<head th:replace="fragments :: head">
+</head>
+<body>
+<div th:replace="fragments :: page-header" class="navbar navbar-inverse navbar-fixed-top"></div>
+
+
+
+
+<div class="container body-content">
+    <h1 class="text-center">Employees</h1>
+    <div class="container">
+        <h5 th:unless="${employees} and ${employees.size()}" class="text-center">No Employees!</h5>
+    </div>
+     <table class="table table-sm table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th scope="col">First Name</th>
+            <th scope="col">Last Name</th>
+<!--            <th scope="col">Position</th>-->
+            <th scope="col"></th>
+            <th scope="col"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="employee : ${employees}">
+            <td th:text="${employee.firstName}" />
+            <td th:text="${employee.lastName}" />
+<!--            <td th:text="${employee.positions}" />-->
+            <td><a th:href="@{'/employee/viewEmployee/' + ${employee.id}}" th:text="'Edit'"></a></td>
+            <td><a th:href="@{/employee}" th:text="'Delete'"></a></td>
+
+        </tr>
+        </tbody>
+    </table>
+    <div class="container">
+        <a th:href="@{/employee/create}">Create New Employee</a>
+    </div>
+</div>
+
+</body>
+<footer th:replace="fragments :: page-footer"></footer>
+</html>
