@@ -13,7 +13,7 @@ public class Employee extends AbstractEntity {
 
 
 
-    @ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     private final List<Job> jobs = new ArrayList<>();
 
     @NotBlank
@@ -23,6 +23,8 @@ public class Employee extends AbstractEntity {
     @NotBlank
     @NotNull(message = "Last name is required.")
     private String lastName;
+
+    private String mainTitle;
 
 
     public Employee (String firstName, String lastName) {
@@ -53,12 +55,11 @@ public class Employee extends AbstractEntity {
         this.lastName = lastName;
     }
 
-
     public void addJob(Job job) {
         this.jobs.add(job);
     }
 
+    public String getMainTitle() {return mainTitle;}
 
-
-
+    public void setMainTitle(String mainTitle) {this.mainTitle = mainTitle;}
 }

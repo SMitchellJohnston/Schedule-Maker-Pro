@@ -15,9 +15,15 @@
             <div class="col-7 order-first">
 
                 <h1 class="display-2" th:text="${employee.lastName} + ', '"></h1>
-                <h1 class="display-3" th:text="${employee.firstName}"></h1>
-            </div>
+                <h2 class="display-3" th:text="${employee.firstName}"></h2>
 
+                <div class="container">
+                    <div class="title-name">
+                        <h5 th:text="${employee.mainTitle}">NO TITLE SET</h5>
+                    </div>
+                    <a th:href="'/employee/setMainTitle?employeeId=' + ${employee.id}">Set Title</a>
+                </div>
+            </div>
             <div class="col-5">
                 <h1 class="display-4 text-center">JOBS</h1>
                 <table class="table table-sm table-hover">
@@ -25,6 +31,8 @@
                     <tr>
                         <th scope="col">Position</th>
                         <th scope="col">Pay Rate</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -32,12 +40,13 @@
                             <td colspan="2">No Jobs Yet </td>
                         </tr>
                         <tr th:each="job : ${jobs}">
-                            <td th:text="job.position.title"></td>
+                            <td th:text="${job.position.title}"></td>
+                            <td th:text="'$ '+ ${job.payRate}"></td>
                         </tr>
                     </tbody>
                 </table>
                 <div class="container">
-                    <a th:href="@{/employee/createJob}">Create New Job</a>
+                    <a th:href="'/employee/createJob?employeeId=' + ${employee.id}">Create New Job</a>
                 </div>
 
             </div>

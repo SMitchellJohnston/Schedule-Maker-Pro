@@ -4,18 +4,86 @@
 <head th:replace="fragments :: head">
 </head>
 <body>
-    <div th:replace="fragments :: page-header"></div>
-    <div class="container body-content">
-        <form method="post" style="max-width:600px;">
-            <div class="form-group">
-                <label th:for="name">Position Title</label>
-                <input class="form-control" th:field="${position.title}" />
+<div th:replace="fragments :: page-header"></div>
+<!--<div class="container body-content">-->
+<!--    <form method="post" style="max-width:600px;">-->
+<!--        <div class="form-group">-->
+<!--            <label th:for="name">Position</label>-->
+<!--            <input type="hidden" th:field="${jobPosition.job}">-->
+<!--            <select th:field="${jobPosition.position}">-->
+<!--                <option th:each="position : ${positions}" th:value="${position.id}" th:text="${position.title}">-->
+<!--                </option>-->
+<!--            </select>-->
+<!--            <label th:for="payRate">Pay Rate: </label>-->
+<!--            <input type="number" min="0.01" step="0.01" value="00.01" th:field="${jobPosition.job.payRate}"/>-->
+<!--        </div>-->
+
+<!--        <input type="submit" class="btn btn-success" value="Add Position" />-->
+<!--    </form>-->
+<!--</div>-->
+
+<div class="container body-content">
+    <div class="container">
+        <div class="row">
+            <div class="col-7 order-first">
+
+                <h1 class="display-2" th:text="${employee.lastName} + ', '"></h1>
+                <h1 class="display-3" th:text="${employee.firstName}"></h1>
+
+
+                <div class="container">
+                    <div class="title-name">
+                        <h5 th:text="${employee.mainTitle}">NO TITLE SET</h5>
+                    </div>
+<!--                    <a th:href="'/employee/setMainTitle?employeeId=' + ${employee.id}">Set Title</a>-->
+                </div>
             </div>
 
-            <input type="submit" value="Add Job" />
-        </form>
+            <div class="col-5">
+                <h1 class="display-4 text-center">JOBS</h1>
+                <table class="table table-sm table-hover">
+                    <thead class="thead-dark">
+                    <tr>
+                        <th scope="col">Position</th>
+                        <th scope="col">Pay Rate</th>
+                        <th scope="col"></th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:unless="${jobs} and ${jobs.size()}" class="text-center">
+                        <td colspan="2">No Jobs Yet </td>
+                    </tr>
+                    <tr th:each="job : ${jobs}">
+                        <td th:text="${job.position.title}"></td>
+                        <td th:text="'$ '+ ${job.payRate}"></td>
+                    </tr>
+                    <tr>
+                        <form method="post">
+                        <td>
+                            <input type="hidden" th:field="${employeeJob.employee}">
+                            <select th:field="${employeeJob.job.position}">
+                                <option th:each="position : ${positions}" th:value="${position.id}" th:text="${position.title}">
+                                </option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="number" min="0.01" step="0.01" value="00.01"
+                                   th:field="${employeeJob.job.payRate}"/>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="container">
+                    <input type="submit" class="btn btn-success" value="Add Job" />
+                </form>
+                </div>
+
+            </div>
+        </div>
     </div>
-    <footer th:replace="fragments :: page-footer"></footer>
+</div>
+<footer th:replace="fragments :: page-footer"></footer>
 
 </body>
 </html>

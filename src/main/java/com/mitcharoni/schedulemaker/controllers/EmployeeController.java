@@ -2,17 +2,15 @@ package com.mitcharoni.schedulemaker.controllers;
 
 import com.mitcharoni.schedulemaker.models.Employee;
 import com.mitcharoni.schedulemaker.models.Job;
-import com.mitcharoni.schedulemaker.models.Position;
 import com.mitcharoni.schedulemaker.models.data.EmployeeRepository;
 import com.mitcharoni.schedulemaker.models.data.JobRepository;
 import com.mitcharoni.schedulemaker.models.data.PositionRepository;
 import com.mitcharoni.schedulemaker.models.dto.EmployeeJobDTO;
-import com.mitcharoni.schedulemaker.models.dto.JobPositionDTO;
+import com.mitcharoni.schedulemaker.models.dto.EmployeeTitleDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -59,11 +57,11 @@ public class EmployeeController {
     @GetMapping("viewEmployee/{employeeId}")
     public String displayViewEmployee(Model model, @PathVariable int employeeId) {
 
-        Optional optEmployee = employeeRepository.findById(employeeId);
+        Optional result = employeeRepository.findById(employeeId);
 //        model.addAttribute("jobs", jobRepository.findAll());
 
-        if (optEmployee.isPresent()){
-            Employee employee = (Employee) optEmployee.get();
+        if (result.isPresent()){
+            Employee employee = (Employee) result.get();
             model.addAttribute("employee", employee);
             model.addAttribute("jobs",employee.getJobs());
         }
@@ -75,36 +73,64 @@ public class EmployeeController {
 
         Optional<Employee> result = employeeRepository.findById(employeeId);
         Employee employee = result.get();
-        JobPositionDTO jobPosition = new JobPositionDTO();
-        jobPosition.setEmployeeId(employeeId);
         model.addAttribute("title", "Create New Job for: " + employee.getFirstName() + " " + employee.getLastName());
         model.addAttribute("positions", positionRepository.findAll());
         model.addAttribute("jobs",employee.getJobs());
         model.addAttribute("employee",employee);
-        model.addAttribute("jobPosition",jobPosition);
-
+        EmployeeJobDTO employeeJob = new EmployeeJobDTO();
+        employeeJob.setEmployee(employee);
+        model.addAttribute("employeeJob",employeeJob);
 
         return "employee/createJob";
     }
 
     @PostMapping("createJob")
     public String processCreateJobForm(Model model,
-                                       @ModelAttribute @Valid JobPositionDTO jobPosition,
+                                       @ModelAttribute @Valid EmployeeJobDTO employeeJob,
                                        Errors errors ) {
+
+
         if (!errors.hasErrors()) {
-            Job job = jobPosition.getJob();
-            Position position = jobPosition.getPosition();
-            Integer employeeId = jobPosition.getEmployeeId();
-            job.setPosition(position);
-            Optional<Employee> employeeResult = employeeRepository.findById(employeeId);
-            Employee employee = (Employee) employeeResult.get();
-            if (!employee.getJobs().contains(job)) {
+            Employee dtoEmployee = employeeJob.getEmployee();
+            Optional<Employee> result = employeeRepository.findById(dtoEmployee.getId());
+            Job job = employeeJob.getJob();
+            Employee employee = (Employee) result.get();
+            if (!dtoEmployee.getJobs().contains(job)) {
                 employee.addJob(job);
+                if(employee.getMainTitle() == null){
+                    employee.setMainTitle(job.toString());
+                }
                 employeeRepository.save(employee);
             }
             return "redirect:viewEmployee/" + employee.getId();
         }
-        return "redirect:createJob";
+        return "redirect:createJob?employeeId=" + employeeJob.getEmployee().getId();
     }
+
+    @GetMapping("setMainTitle")
+    public String displaySetMainTitleForm(Model model, @RequestParam Integer employeeId){
+        Optional<Employee> result = employeeRepository.findById(employeeId);
+        Employee employee = (Employee) result.get();
+        EmployeeTitleDTO employeeTitle = new EmployeeTitleDTO();
+        employeeTitle.setEmployee(employee);
+        model.addAttribute("title", "Set Title");
+        model.addAttribute("employee", employee);
+        model.addAttribute("jobs", employee.getJobs());
+        model.addAttribute("employeeTitle", employeeTitle);
+
+        return "employee/setMainTitle";
+    }
+
+    @PostMapping("setMainTitle")
+    public String processSetMainTitleForm(Model model, @ModelAttribute @Valid EmployeeTitleDTO employeeTitle){
+        Employee employee = employeeTitle.getEmployee();
+        String title = employeeTitle.getPosition().toString();
+        if(employee.getMainTitle() == null){
+            employee.setMainTitle(title);
+        }
+        employeeRepository.save(employee);
+        return "redirect:viewEmployee/" + employee.getId();
+    }
+
 }
 

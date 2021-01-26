@@ -15,9 +15,12 @@
             <div class="col-7 order-first">
 
                 <h1 class="display-2" th:text="${employee.lastName} + ', '"></h1>
-                <h1 class="display-3" th:text="${employee.firstName}"></h1>
+                <h2 class="display-3" th:text="${employee.firstName}"></h2>
 
                 <div class="container">
+                    <div class="title-name">
+                        <h5 th:text="${employee.mainTitle}">NO TITLE SET</h5>
+                    </div>
                     <a th:href="'/employee/setMainTitle?employeeId=' + ${employee.id}">Set Title</a>
                 </div>
             </div>
@@ -37,7 +40,8 @@
                             <td colspan="2">No Jobs Yet </td>
                         </tr>
                         <tr th:each="job : ${jobs}">
-                            <td th:text="job.position.title"></td>
+                            <td th:text="${job.position.title}"></td>
+                            <td th:text="'$ '+ ${job.payRate}"></td>
                         </tr>
                     </tbody>
                 </table>

@@ -12,3 +12,8 @@ footer {
     bottom: 0;
 
 }
+
+.title-name {
+  text-shadow: 2px 2px rgb(140, 140, 140);
+  font-size: 22px;
+}
