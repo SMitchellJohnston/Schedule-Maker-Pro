@@ -12,17 +12,17 @@ public class EmployeeTitleDTO {
     private Employee employee;
 
     @NotNull
-    private Position position;
+    private String mainTitle;
 
 
     public EmployeeTitleDTO() {}
 
-    public Position getPosition() {
-        return position;
+    public String getMainTitle() {
+        return mainTitle;
     }
 
-    public void setPosition(Position position) {
-        this.position = position;
+    public void setMainTitle(String mainTitle) {
+        this.mainTitle = mainTitle;
     }
 
     public Employee getEmployee() {

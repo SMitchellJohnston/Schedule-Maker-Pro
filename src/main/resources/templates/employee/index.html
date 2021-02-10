@@ -19,7 +19,7 @@
         <tr>
             <th scope="col">First Name</th>
             <th scope="col">Last Name</th>
-<!--            <th scope="col">Position</th>-->
+            <th scope="col">Position</th>
             <th scope="col"></th>
             <th scope="col"></th>
         </tr>
@@ -28,7 +28,7 @@
         <tr th:each="employee : ${employees}">
             <td th:text="${employee.firstName}" />
             <td th:text="${employee.lastName}" />
-<!--            <td th:text="${employee.positions}" />-->
+            <td th:text="${employee.mainTitle}" />
             <td><a th:href="@{'/employee/viewEmployee/' + ${employee.id}}" th:text="'View'"></a></td>
             <td><a th:href="@{/employee}" th:text="'Delete'"></a></td>
 
@@ -36,7 +36,14 @@
         </tbody>
     </table>
     <div class="container">
-        <a th:href="@{/employee/create}">Create New Employee</a>
+        <ul class="list-group list-group-horizontal">
+            <li class="list-group-item"><a th:href="@{/employee/create}">Create New Employee</a>
+            </li>
+            <li class="list-group-item"><a th:href="@{/position/create}">Create New Position</a>
+            </li>
+            <li class="list-group-item"><a th:href="@{/position}">Positions</a>
+            </li>
+        </ul>
     </div>
 </div>
 

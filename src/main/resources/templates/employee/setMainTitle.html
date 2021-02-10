@@ -18,9 +18,10 @@
                 <h2 class="display-3" th:text="${employee.firstName}"></h2>
 
                 <div class="container">
-                    <form method="post" >
-                        <select th:field="${employee.mainTitle}">
-                            <option th:each="job : ${jobs}" th:value="${job.id}" th:text="${job.position}">
+                    <form method="post">
+                        <input type="hidden" th:field="${employeeTitle.employee}">
+                        <select th:field="${employeeTitle.mainTitle}">
+                            <option th:each="job : ${jobs}" th:value="${job.position.title}" th:text="${job.position}">
                             </option>
                         </select>
                         <input type="submit" class="btn btn-success" value="Set Title" />

@@ -124,10 +124,11 @@ public class EmployeeController {
     @PostMapping("setMainTitle")
     public String processSetMainTitleForm(Model model, @ModelAttribute @Valid EmployeeTitleDTO employeeTitle){
         Employee employee = employeeTitle.getEmployee();
-        String title = employeeTitle.getPosition().toString();
-        if(employee.getMainTitle() == null){
-            employee.setMainTitle(title);
-        }
+        String title = employeeTitle.getMainTitle();
+        employee.setMainTitle(title);
+//        if(employee.getMainTitle() == null){
+//            employee.setMainTitle(title);
+//        }
         employeeRepository.save(employee);
         return "redirect:viewEmployee/" + employee.getId();
     }
